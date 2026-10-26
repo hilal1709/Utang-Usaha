@@ -1,0 +1,35 @@
+{
+  "brand": "AP Insight",
+  "tagline": "Aging utang usaha Group, satu definisi dari unggah sampai PPT",
+  "brief": "Dashboard dan CMS internal Unit AR/AP Management & Liquidity untuk konsolidasi laporan aging utang usaha OpCo. Harus terasa tepercaya, rapi, dan jelas di layar rapat maupun di HP.",
+  "adjectives": ["tepercaya", "terukur", "jernih", "tenang"],
+  "criteria": "Bukan panah naik atau perisai finansial; terbaca di 16 px; tetap bekerja satu warna; tidak memakai identitas SIG.",
+  "industry": "finance",
+  "mockups": ["website", "favicon-tab", "app-icon", "business-card", "social", "badge"],
+  "nav": ["Konsolidasi", "Per OpCo", "CMS"],
+  "brand_color": "#2D728F",
+  "tile_color": "#12303D",
+  "greyscale": false,
+  "designer": "AP Insight",
+  "round": 2,
+  "concepts": [
+    {
+      "name": "Core Lens",
+      "symbol": "final/symbol-color.svg",
+      "lockup": "final/lockup-horizontal-color.svg",
+      "symbol_on_tile": "final/symbol-ondark.svg",
+      "symbol_on_dark": "final/symbol-ondark.svg",
+      "lockup_on_dark": "final/lockup-horizontal-ondark.svg",
+      "stacked_on_dark": "final/lockup-stacked-ondark.svg",
+      "idea": "Lensa wawasan yang dipotong lapisan; makin ke bawah makin tebal dan tua, seperti umur utang.",
+      "rationale": [
+        "Skala warna logo = skala umur di dashboard (Vanilla → Brick)",
+        "Geometri sederhana: satu lingkaran, tiga celah horizontal",
+        "Potongan kecil 3 lapisan untuk favicon 16 px",
+        "Titik i persegi Sandy menjadi detail wordmark yang khas"
+      ]
+    }
+  ],
+  "recommendation": "Core Lens sebagai identitas tunggal AP Insight; Cerulean satu warna untuk dokumen resmi.",
+  "next_steps": ["Pasang aset final di aplikasi", "Bagikan pedoman singkat ke tim Treasury"]
+}

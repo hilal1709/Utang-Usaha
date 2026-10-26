@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
+// Seluruh halaman bergantung pada sesi & data live, jadi model caching lama
+// (tanpa cacheComponents) dipakai: rute otomatis dinamis saat membaca cookies.
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  serverExternalPackages: ["exceljs", "pptxgenjs"],
   turbopack: {
     rules: {
       "*.css": {

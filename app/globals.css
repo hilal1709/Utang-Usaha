@@ -1,26 +1,362 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-sidebar: var(--rail);
+  --color-sidebar-foreground: var(--rail-ink);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Palet merek (dashboard) */
+  --color-cerulean: #2d728f;
+  --color-cyan: #3b8ea5;
+  --color-vanilla: #f5ee9e;
+  --color-sandy: #f49e4c;
+  --color-brick: #ab3428;
+  /* Palet CMS */
+  --color-celadon: #b9d8c2;
+  --color-lightblue: #9ac2c9;
+  --color-steel: #8aa1b1;
+  --color-ebony: #4a5043;
+  --color-pollen: #ffcb47;
+
+  --color-rail: var(--rail);
+  --color-rail-ink: var(--rail-ink);
+  --color-rail-muted: var(--rail-muted);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-action: var(--action);
+  --color-action-ink: var(--action-ink);
+  --color-track: var(--track);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Aceternity background-gradient-animation */
+  --animate-first: moveVertical 30s ease infinite;
+  --animate-second: moveInCircle 20s reverse infinite;
+  --animate-third: moveInCircle 40s linear infinite;
+  --animate-fourth: moveHorizontal 40s ease infinite;
+  --animate-fifth: moveInCircle 20s ease infinite;
+
+  @keyframes moveHorizontal {
+    0% { transform: translateX(-50%) translateY(-10%); }
+    50% { transform: translateX(50%) translateY(10%); }
+    100% { transform: translateX(-50%) translateY(-10%); }
+  }
+  @keyframes moveInCircle {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(180deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes moveVertical {
+    0% { transform: translateY(-50%); }
+    50% { transform: translateY(50%); }
+    100% { transform: translateY(-50%); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------- Tema Dashboard (Cerulean) — liquid glass ---------- */
+:root,
+[data-theme="dash"] {
+  /* Latar gradien penuh dari palet: kaca hanya terlihat "cair" bila ada warna kaya di belakangnya. */
+  --scene:
+    radial-gradient(60rem 42rem at 8% -6%, rgba(59, 142, 165, 0.95), transparent 62%),
+    radial-gradient(46rem 36rem at 98% 8%, rgba(171, 52, 40, 0.5), transparent 62%),
+    radial-gradient(54rem 40rem at 72% 104%, rgba(244, 158, 76, 0.55), transparent 62%),
+    radial-gradient(40rem 30rem at 24% 92%, rgba(245, 238, 158, 0.32), transparent 62%),
+    linear-gradient(155deg, #17465c 0%, #2d728f 46%, #45708a 100%);
+  --ink: #f6fbfd;
+  --ink-soft: rgba(238, 247, 250, 0.78);
+  --rail: rgba(29, 84, 108, 0.58);
+  --rail-ink: #f6fbfd;
+  --rail-muted: rgba(230, 244, 249, 0.74);
+  --rail-active-bg: rgba(255, 255, 255, 0.92);
+  --rail-active-ink: #1d5168;
+  --brand-ink: #ffffff;
+  --action: #f5ee9e;
+  --action-ink: #12303d;
+
+  --background: transparent;
+  --foreground: var(--ink);
+  --card: rgba(255, 255, 255, 0.12);
+  --card-foreground: var(--ink);
+  --popover: rgba(24, 70, 90, 0.9);
+  --popover-foreground: var(--ink);
+  --primary: #f5ee9e;
+  --primary-foreground: #12303d;
+  --secondary: rgba(255, 255, 255, 0.14);
+  --secondary-foreground: var(--ink);
+  --muted: rgba(255, 255, 255, 0.1);
+  --muted-foreground: var(--ink-soft);
+  --accent: rgba(255, 255, 255, 0.16);
+  --accent-foreground: var(--ink);
+  --destructive: #ff9b8d;
+  --border: rgba(255, 255, 255, 0.2);
+  --input: rgba(255, 255, 255, 0.3);
+  --ring: #f5ee9e;
+  --radius: 0.9rem;
+
+  --glass-tint: rgba(255, 255, 255, 0.13);
+  --glass-dense: rgba(10, 34, 46, 0.16);
+  --glass-strong: rgba(22, 66, 86, 0.84);
+  --glass-edge: rgba(255, 255, 255, 0.34);
+  --glass-shadow: 0 2px 6px rgba(6, 26, 36, 0.12), 0 24px 48px -24px rgba(6, 26, 36, 0.55);
+  --selection: rgba(245, 238, 158, 0.45);
+  --track: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------- Tema CMS — distribusi referensi: sidebar Celadon, tile Light Blue / Cool Steel / Ebony / Golden Pollen ---------- */
+[data-theme="cms"] {
+  --scene:
+    radial-gradient(56rem 40rem at 4% -8%, rgba(185, 216, 194, 0.85), transparent 62%),
+    radial-gradient(46rem 34rem at 100% 6%, rgba(154, 194, 201, 0.7), transparent 62%),
+    radial-gradient(48rem 36rem at 70% 106%, rgba(255, 203, 71, 0.42), transparent 62%),
+    linear-gradient(155deg, #4a5043 0%, #5c6b62 45%, #6f8796 100%);
+  --ink: #f7f9f5;
+  --ink-soft: rgba(243, 247, 240, 0.78);
+  --rail: rgba(185, 216, 194, 0.86);
+  --rail-ink: #23271f;
+  --rail-muted: rgba(35, 39, 31, 0.68);
+  --rail-active-bg: #4a5043;
+  --rail-active-ink: #f3f6f1;
+  --brand-ink: #23271f;
+  --action: #ffcb47;
+  --action-ink: #23271f;
+
+  --background: transparent;
+  --foreground: var(--ink);
+  --card: rgba(255, 255, 255, 0.12);
+  --card-foreground: var(--ink);
+  --popover: rgba(60, 66, 54, 0.9);
+  --popover-foreground: var(--ink);
+  --primary: #ffcb47;
+  --primary-foreground: #23271f;
+  --secondary: rgba(255, 255, 255, 0.14);
+  --secondary-foreground: var(--ink);
+  --muted: rgba(255, 255, 255, 0.1);
+  --muted-foreground: var(--ink-soft);
+  --accent: rgba(255, 255, 255, 0.16);
+  --accent-foreground: var(--ink);
+  --destructive: #ff9b8d;
+  --border: rgba(255, 255, 255, 0.2);
+  --input: rgba(255, 255, 255, 0.3);
+  --ring: #ffcb47;
+  --radius: 0.9rem;
+
+  --glass-tint: rgba(255, 255, 255, 0.13);
+  --glass-dense: rgba(30, 34, 26, 0.16);
+  --glass-strong: rgba(58, 64, 53, 0.86);
+  --glass-edge: rgba(255, 255, 255, 0.34);
+  --glass-shadow: 0 2px 6px rgba(20, 24, 18, 0.12), 0 24px 48px -24px rgba(20, 24, 18, 0.55);
+  --selection: rgba(255, 203, 71, 0.5);
+  --track: rgba(255, 255, 255, 0.14);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    font-feature-settings: "ss01", "cv11";
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+    background: #1b4d63;
+  }
+  body {
+    color: var(--ink);
+    caret-color: var(--primary);
+  }
+  ::selection {
+    background: var(--selection);
+    color: #12303d;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  /* Daftar pilihan <select> digambar OS di atas putih. */
+  option {
+    color: #12303d;
+    background: #ffffff;
+  }
+  a {
+    text-underline-offset: 3px;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+}
+
+@layer components {
+  .ground-fields {
+    background: var(--scene);
+    background-attachment: fixed;
+  }
+
+  /*
+   * Liquid glass: tembus pandang dengan blur + saturasi kuat, kilau specular diagonal,
+   * tepi terang yang memudar (border gradien via mask), bayangan lembut ber-offset.
+   */
+  .glass,
+  .glass-solid {
+    position: relative;
+    isolation: isolate;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 42%, rgba(255, 255, 255, 0.1) 100%),
+      var(--glass-tint);
+    -webkit-backdrop-filter: blur(22px) saturate(1.7);
+    backdrop-filter: blur(22px) saturate(1.7);
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+  }
+  /* Panel berisi grafik: dasar sedikit lebih gelap agar label tetap kontras. */
+  .glass-solid {
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.07) 45%, rgba(255, 255, 255, 0.1) 100%),
+      var(--glass-dense);
+  }
+  .glass::before,
+  .glass-solid::before,
+  .glass-pill::before,
+  .glass-tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.14) 38%, rgba(255, 255, 255, 0.05) 70%, rgba(255, 255, 255, 0.38));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* Kaca pekat untuk modal, popover, dan toast. */
+  .glass-strong {
+    position: relative;
+    background: var(--glass-strong);
+    -webkit-backdrop-filter: blur(28px) saturate(1.6);
+    backdrop-filter: blur(28px) saturate(1.6);
+    border: 1px solid var(--glass-edge);
+    box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    color: var(--ink);
+  }
+
+  /* Tile KPI: kaca berwarna (--tile) dengan kilau specular dan pantulan cair di sudut. */
+  .glass-tile {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.42), transparent 46%),
+      linear-gradient(160deg, color-mix(in oklab, var(--tile) 80%, white) 0%, color-mix(in oklab, var(--tile) 82%, transparent) 55%, color-mix(in oklab, var(--tile) 80%, black) 100%);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    backdrop-filter: blur(18px) saturate(1.6);
+    box-shadow: 0 22px 44px -24px color-mix(in oklab, var(--tile) 60%, black), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .glass-tile::before {
+    content: "";
+    position: absolute;
+    right: -30%;
+    bottom: -60%;
+    width: 80%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 65%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Kontrol berbentuk pil kaca (select, badge, tombol sekunder). */
+  .glass-pill {
+    position: relative;
+    background: rgba(255, 255, 255, 0.14);
+    -webkit-backdrop-filter: blur(14px) saturate(1.5);
+    backdrop-filter: blur(14px) saturate(1.5);
+    color: var(--ink);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    transition: background-color 160ms var(--ease-out-expo);
+  }
+  .glass-pill:hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+  .glass-input {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: var(--ink);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .glass-input:focus-visible {
+    border-color: var(--ring) !important;
+  }
+
+  .scroll-thin {
+    scrollbar-width: thin;
+  }
+}
+
+/* Progres navigasi: lapisan umur Vanilla → Sandy → Brick merambat dari kiri. */
+.nav-progress-bar {
+  background: linear-gradient(90deg, #f5ee9e, #f49e4c 60%, #ab3428);
+  box-shadow: 0 1px 6px color-mix(in oklab, #f49e4c 55%, transparent);
+  animation: nav-progress-trickle 9s var(--ease-out-expo) forwards;
+}
+[data-theme="cms"] .nav-progress-bar {
+  background: linear-gradient(90deg, #b9d8c2, #ffcb47);
+  box-shadow: 0 1px 6px color-mix(in oklab, #ffcb47 55%, transparent);
+}
+.nav-progress-bar[data-phase="done"] {
+  animation: none;
+  transform: scaleX(1);
+  transition: transform 200ms var(--ease-out-expo);
+}
+@keyframes nav-progress-trickle {
+  0% { transform: scaleX(0); }
+  8% { transform: scaleX(0.35); }
+  40% { transform: scaleX(0.7); }
+  100% { transform: scaleX(0.92); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
