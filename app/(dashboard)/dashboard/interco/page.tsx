@@ -20,7 +20,7 @@ export default function Page({ searchParams }: PageProps<"/dashboard/interco">) 
                 <>
                   <ul className="divide-y divide-border">
                     {rows.map((r) => (
-                      <li key={r.code} className="grid gap-3 py-4 md:grid-cols-[16rem_1fr]">
+                      <li key={r.code} className="grid gap-3 py-4 md:grid-cols-[14rem_minmax(0,1fr)] xl:grid-cols-[16rem_minmax(0,1fr)]">
                         <div>
                           <p className="text-sm font-semibold text-ink">{report.opcoNames[r.code] ?? r.code} <span className="font-medium text-ink-soft">({r.code})</span></p>
                           <p className="num mt-1 text-[1.35rem] font-semibold tracking-[-0.02em] text-[#ffc2b8]">Rp {milyarAuto(r.amount)} M</p>

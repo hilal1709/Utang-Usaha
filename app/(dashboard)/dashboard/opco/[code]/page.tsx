@@ -28,7 +28,7 @@ function StatusRow({ s }: { s: Section }) {
       {items.map((i) => (
         <div key={i.label} className={`rounded-2xl px-3.5 py-3 ${i.cls}`}>
           <p className="text-[0.7rem] font-medium opacity-80">{i.label}</p>
-          <p className="num mt-0.5 text-lg font-semibold tracking-[-0.02em]">{milyarAuto(i.v)}</p>
+          <p className="num mt-0.5 text-base font-semibold tracking-[-0.02em] sm:text-lg">{milyarAuto(i.v)}</p>
         </div>
       ))}
     </div>
@@ -38,13 +38,13 @@ function StatusRow({ s }: { s: Section }) {
 function Block({ title, s }: { title: string; s: Section }) {
   return (
     <section className="space-y-4" aria-label={title}>
-      <div className="flex items-baseline justify-between gap-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <h2 className="text-lg font-semibold tracking-[-0.015em] text-ink">{title}</h2>
         <span className="text-xs text-ink-soft">Status tagihan, Milyar Rp</span>
       </div>
       <StatusRow s={s} />
       <StrataBar buckets={s.buckets} height={12} animate={false} label={title} />
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_1.6fr]">
+      <div className="grid grid-cols-1 gap-4 md:max-lg:grid-cols-[1fr_1.6fr] xl:grid-cols-[1fr_1.6fr]">
         <Panel title="Jenis pembayaran"><PaymentBars payment={s.payment} height={180} /></Panel>
         <Panel title="Top 10 vendor">
           {s.topVendors.length ? <HBarChart rows={s.topVendors.map((v) => ({ label: v.name, amount: v.amount }))} digits={2} /> : <EmptyNote>Tidak ada saldo.</EmptyNote>}

@@ -49,7 +49,7 @@ export function StrataBar({ buckets, total, height = 14, className, animate = tr
 export function StrataLegend({ buckets, compact = false }: { buckets: Record<Bucket, number>; compact?: boolean }) {
   const sum = BUCKETS.reduce((s, b) => s + Math.max(0, buckets[b] ?? 0), 0);
   return (
-    <dl className={cn("grid gap-x-5 gap-y-2.5", compact ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2 sm:grid-cols-3 xl:grid-cols-6")}>
+    <dl className={cn("grid gap-x-5 gap-y-2.5", compact ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2 sm:grid-cols-3 2xl:grid-cols-6")}>
       {BUCKETS.map((b) => (
         <div key={b} className="min-w-0">
           <dt className="flex items-center gap-1.5 text-[0.72rem] font-medium text-ink-soft">

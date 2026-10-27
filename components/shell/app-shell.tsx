@@ -107,19 +107,20 @@ export function AppShell({ theme, groups, user, sub, children }: Props) {
         <Rail theme={theme} groups={groups} user={user} sub={sub} />
       </aside>
       <div className="min-w-0 overflow-x-clip lg:pl-[264px]">
-        <div className="glass sticky top-0 z-20 flex items-center gap-3 px-4 py-2.5 lg:hidden">
+        <div className="glass sticky top-0 z-20 flex items-center gap-3 pt-[max(0.625rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-2.5 pl-[max(1rem,env(safe-area-inset-left))] lg:hidden">
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger className="glass-pill grid size-9 place-items-center rounded-full" aria-label="Buka menu">
+            <SheetTrigger className="glass-pill grid size-10 place-items-center rounded-full" aria-label="Buka menu">
               <Menu className="size-5" />
             </SheetTrigger>
-            <SheetContent side="left" className="w-[270px] border-0 bg-transparent p-0 shadow-none" data-theme={theme}>
+            <SheetContent side="left" className="w-[min(270px,85vw)] border-0 bg-transparent p-0 shadow-none" data-theme={theme}>
               <SheetTitle className="sr-only">Menu</SheetTitle>
               <Rail theme={theme} groups={groups} user={user} sub={sub} onNavigate={() => setOpen(false)} />
             </SheetContent>
           </Sheet>
           <BrandLockup variant={theme === "cms" ? "onDark" : "onDark"} ink="#ffffff" />
         </div>
-        {children}
+        {/* Batas lebar untuk monitor ultrawide; layar 1920 (proyektor rapat) tetap memakai lebar penuh. */}
+        <main className="mx-auto w-full max-w-[1680px] pb-[env(safe-area-inset-bottom)]">{children}</main>
       </div>
     </div>
   );

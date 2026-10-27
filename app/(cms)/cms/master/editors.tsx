@@ -46,8 +46,16 @@ function OpcoLine({ row }: { row: OpcoRow }) {
 
 type VendorRow = { key: string; name: string; kategori: string };
 
-export function VendorEditor({ rows, total, term }: { rows: VendorRow[]; total: number; term: string }) {
+const KATEGORI_FILTER = ["Interco", "Afiliasi", "BUMN", "Third Parties"];
+
+export function VendorEditor({ rows, total, term, kat: katFilter, counts }: { rows: VendorRow[]; total: number; term: string; kat: string; counts: Record<string, number> }) {
   const router = useRouter();
+  const go = (qs: { q?: string; kat?: string }) => {
+    const p = new URLSearchParams();
+    if (qs.q) p.set("q", qs.q);
+    if (qs.kat) p.set("kat", qs.kat);
+    router.push(`/cms/master${p.size ? `?${p}` : ""}`);
+  };
   const [q, setQ] = useState(term);
   const [name, setName] = useState("");
   const [kat, setKat] = useState("Interco");
@@ -58,18 +66,26 @@ export function VendorEditor({ rows, total, term }: { rows: VendorRow[]; total: 
         <h2 className="font-semibold text-ink">Master vendor berelasi</h2>
         <p className="mt-1 text-sm text-ink-soft">{total.toLocaleString("id-ID")} vendor Interco/Afiliasi/BUMN. Nama disimpan tanpa “PT”; file OpCo yang berbeda kategori akan diberi peringatan.</p>
       </div>
-      <form className="flex flex-wrap gap-2 px-5 pt-4" onSubmit={(e) => { e.preventDefault(); router.push(`/cms/master?q=${encodeURIComponent(q)}`); }}>
-        <div className="relative min-w-[12rem] flex-1">
+      <form className="flex flex-wrap gap-2 px-5 pt-4" onSubmit={(e) => { e.preventDefault(); go({ q: q.trim(), kat: katFilter }); }}>
+        <div className="relative min-w-0 flex-1 sm:min-w-[12rem]">
           <Search className="pointer-events-none absolute top-2.5 left-2.5 size-4 text-ink-soft" />
           <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cari vendor" className="h-9 glass-input pl-8" aria-label="Cari vendor" />
         </div>
         <Button type="submit" variant="outline" size="sm" className="h-9">Cari</Button>
       </form>
+      <div className="flex flex-wrap gap-2 px-5 pt-3" role="group" aria-label="Filter kategori">
+        {[{ value: "", label: "Semua", n: total }, ...KATEGORI_FILTER.map((k) => ({ value: k, label: k, n: counts[k] ?? 0 }))].map((f) => (
+          <button key={f.value} type="button" aria-pressed={katFilter === f.value} onClick={() => go({ q: term, kat: f.value })}
+            className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${katFilter === f.value ? "bg-[#9ac2c9] text-[#1f3d44]" : "bg-white/10 text-ink-soft hover:bg-white/20"}`}>
+            {f.label} · {f.n.toLocaleString("id-ID")}
+          </button>
+        ))}
+      </div>
       <form className="flex flex-wrap gap-2 px-5 pt-3" onSubmit={(e) => {
         e.preventDefault();
         start(async () => { const r = await upsertVendor({ name, kategori: kat }); notify(r); if (r.ok) setName(""); });
       }}>
-        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nama vendor baru" className="h-9 min-w-[12rem] flex-1 glass-input" aria-label="Nama vendor baru" />
+        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nama vendor baru" className="h-9 min-w-0 basis-full flex-1 glass-input sm:min-w-[12rem] sm:basis-auto" aria-label="Nama vendor baru" />
         <ThemedSelect value={kat} onChange={setKat} ariaLabel="Kategori" className="min-w-40"
           options={["Interco", "Afiliasi", "BUMN", "Third Parties"].map((k) => ({ value: k, label: k }))} />
         <Button type="submit" size="sm" className="h-9" disabled={pending || name.trim().length < 2}><Plus /> Tambah</Button>

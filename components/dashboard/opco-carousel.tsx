@@ -18,7 +18,7 @@ export type OpcoCard = {
 export function OpcoCarousel({ cards, period }: { cards: OpcoCard[]; period: string }) {
   return (
     <div className="relative overflow-x-clip">
-      <div className="mb-3 flex items-center justify-end gap-2">
+      <div className="mb-3 flex items-center justify-end gap-2 max-sm:hidden">
         <button className="opco-prev grid size-9 place-items-center glass-pill rounded-full disabled:opacity-40" aria-label="OpCo sebelumnya"><ChevronLeft className="size-4" /></button>
         <button className="opco-next grid size-9 place-items-center glass-pill rounded-full disabled:opacity-40" aria-label="OpCo berikutnya"><ChevronRight className="size-4" /></button>
       </div>
@@ -27,9 +27,9 @@ export function OpcoCarousel({ cards, period }: { cards: OpcoCard[]; period: str
         navigation={{ prevEl: ".opco-prev", nextEl: ".opco-next" }}
         keyboard={{ enabled: true }}
         mousewheel={{ forceToAxis: true }}
-        spaceBetween={16}
-        slidesPerView={1.1}
-        breakpoints={{ 640: { slidesPerView: 2.1 }, 1100: { slidesPerView: 3.1 }, 1500: { slidesPerView: 4.1 } }}
+        spaceBetween={12}
+        slidesPerView={1.08}
+        breakpoints={{ 480: { slidesPerView: 1.6, spaceBetween: 16 }, 640: { slidesPerView: 2.1, spaceBetween: 16 }, 1100: { slidesPerView: 3.1, spaceBetween: 16 }, 1500: { slidesPerView: 4.1, spaceBetween: 16 } }}
         a11y={{ prevSlideMessage: "OpCo sebelumnya", nextSlideMessage: "OpCo berikutnya" }}
         className="!overflow-visible"
       >

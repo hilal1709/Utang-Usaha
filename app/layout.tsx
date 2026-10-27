@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: "Konsolidasi & dashboard aging utang usaha Group — Unit AR/AP Management & Liquidity.",
 };
 
-export const viewport: Viewport = { themeColor: "#2d728f" };
+export const viewport: Viewport = { themeColor: "#2d728f", viewportFit: "cover" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

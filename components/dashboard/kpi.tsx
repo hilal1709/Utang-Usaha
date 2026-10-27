@@ -41,12 +41,12 @@ export function KpiTile({ tone, label, value, digits = 0, unit = "M", suffix, no
 }) {
   const up = (delta ?? 0) >= 0;
   return (
-    <div className={cn("glass-tile flex min-h-[136px] flex-col justify-between rounded-[1.6rem] p-5", TONES[tone])}>
+    <div className={cn("glass-tile flex min-h-[124px] min-w-0 flex-col justify-between rounded-[1.6rem] p-4 sm:min-h-[136px] sm:p-5", TONES[tone])}>
       <p className="text-[0.82rem] font-semibold">{label}</p>
       <div>
         <p className="mt-3 flex items-baseline gap-1.5 leading-none">
           {unit === "M" && <span className="text-[0.95rem] font-semibold">Rp</span>}
-          <CountUp value={value} digits={digits} unit={unit} className="text-[2.1rem] font-semibold tracking-[-0.03em] sm:text-[2.3rem]" />
+          <CountUp value={value} digits={digits} unit={unit} className="text-[1.85rem] font-semibold tracking-[-0.03em] min-[400px]:text-[2.1rem] sm:text-[2.3rem]" />
           {unit === "M" ? <span className="text-[0.95rem] font-semibold">M</span> : suffix && <span className="text-[0.95rem] font-semibold">{suffix}</span>}
         </p>
         <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.75rem] text-[var(--sub)]">
@@ -57,7 +57,7 @@ export function KpiTile({ tone, label, value, digits = 0, unit = "M", suffix, no
             </span>
           )}
           {deltaLabel && <span>{deltaLabel}</span>}
-          {note && <span>{note}</span>}
+          {note && <span className="min-w-0 break-words">{note}</span>}
         </div>
       </div>
     </div>

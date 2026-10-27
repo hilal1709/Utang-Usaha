@@ -22,6 +22,7 @@ export function PeriodSelect({ periods, value }: { periods: { period: string; ha
       }}
       options={periods.map((p) => ({ value: p.period, label: `${monthLabel(p.period)}${p.hasDetail ? "" : " (tren saja)"}` }))}
       icon={<CalendarDays className="size-4 shrink-0 text-ink-soft" aria-hidden />}
+      className="min-w-[9rem] max-sm:flex-1"
     />
   );
 }
@@ -33,9 +34,9 @@ export function PageHeader({ title, description, actions }: { title: string; des
         <h1 className="text-[1.6rem] font-semibold leading-tight tracking-[-0.025em] text-ink [text-wrap:balance] sm:text-[1.85rem]">{title}</h1>
         {description && <p className="mt-1.5 text-sm text-ink-soft">{description}</p>}
       </div>
-      <div className="flex flex-wrap items-center gap-2.5">
-        <LiveBadge />
+      <div className="flex flex-wrap items-center gap-2.5 max-sm:w-full">
         {actions}
+        <LiveBadge />
       </div>
     </header>
   );
