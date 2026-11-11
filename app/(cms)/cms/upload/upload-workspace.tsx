@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Banner } from "@/components/feedback/banner";
 import { toast } from "@/components/feedback/toaster";
 import { Lottie } from "@/components/motion/lottie";
+import { SigLoader } from "@/components/motion/sig-loader";
 import { StrataBar } from "@/components/charts/strata";
 import type { IssueGroup } from "@/lib/validation";
 import type { Bucket } from "@/lib/rules/constants";
@@ -172,7 +173,7 @@ export function UploadWorkspace({ opcos, fixedOpco, initialOpco, periods, defaul
       {phase.k === "parsing" && (
         <div className="glass-solid grid min-h-[280px] place-items-center rounded-2xl p-8 text-center" aria-live="polite">
           <div>
-            <Lottie name="loader" className="mx-auto h-28 w-32" />
+            <SigLoader className="mx-auto h-20 text-ink" />
             <p className="mt-3 font-semibold text-ink">{phase.step === "read" ? "Membaca file…" : "Memeriksa setiap baris…"}</p>
             <p className="mt-1 text-sm text-ink-soft">{phase.file.name} · {(phase.file.size / 1024 / 1024).toLocaleString("id-ID", { maximumFractionDigits: 1 })} MB. File besar bisa butuh beberapa puluh detik.</p>
           </div>

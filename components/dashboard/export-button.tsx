@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { Lottie } from "@/components/motion/lottie";
+import { SigLoader } from "@/components/motion/sig-loader";
 import { toast } from "@/components/feedback/toaster";
 
 /** Unduh berkas hasil generate server dengan overlay progres bermerek. */
@@ -44,7 +44,7 @@ export function ExportButton({ period, kind = "ppt", variant = "default", label 
       </Button>
       <Dialog open={busy}>
         <DialogContent showCloseButton={false} className="sm:max-w-sm">
-          <Lottie name="loader" className="mx-auto h-32 w-36" />
+          <SigLoader className="mx-auto h-20 text-foreground" />
           <DialogTitle className="text-center text-base">{kind === "ppt" ? "Menyusun presentasi…" : "Menyusun Excel Gabungan…"}</DialogTitle>
           <DialogDescription className="text-center">
             {kind === "ppt" ? "Grafik dan kesimpulan dihitung dari data aktif periode ini." : "Seluruh baris aktif OpCo ditulis ke sheet Source."}

@@ -1,11 +1,11 @@
-import { Lottie } from "@/components/motion/lottie";
+import { SigLoader } from "@/components/motion/sig-loader";
 
-/** Animasi loading bermerek saat pindah halaman: lapisan umur terisi + kerangka panel. */
+/** Animasi loading bermerek saat pindah halaman: logo SIG beranimasi + kerangka panel. */
 export function RouteLoading({ label = "Memuat data…" }: { label?: string }) {
   return (
     <div className="px-4 pt-8 pb-12 sm:px-8" role="status" aria-live="polite">
       <div className="flex items-center gap-4">
-        <Lottie name="loader" className="h-14 w-16" />
+        <SigLoader className="h-12 text-ink" />
         <div>
           <p className="text-sm font-semibold text-ink">{label}</p>
           <p className="text-xs text-ink-soft">Menghitung ulang dari data aktif terbaru</p>
