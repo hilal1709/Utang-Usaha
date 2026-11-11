@@ -1,5 +1,10 @@
 {
-  "name": "AP Insight",
+  "name": "AP Insight \u2014 Utang Usaha Group",
+  "short_name": "AP Insight",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#2D728F",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -17,8 +22,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "theme_color": "#2D728F",
-  "background_color": "#2D728F",
-  "display": "standalone"
+  ]
 }

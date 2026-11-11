@@ -31,7 +31,7 @@ Aturan penyusunan laporan Treasury (umur dari akhir bulan, bucket 1-45/46-135/13
 - Validasi: kesalahan nyata memblokir; hal sepele dirapikan dan dilaporkan sebagai peringatan.
 
 ## Brand Commitments
-- Nama: **AP Insight**. Tidak memakai logo resmi SIG.
+- Nama: **AP Insight**. Logo memakai simbol SIG (chevron + huruf SIG, tanpa teks perusahaan).
 - Bahasa antarmuka: Bahasa Indonesia; istilah AP (TOP, SCF, SKBDN, Interco, Clean & Clear) dipertahankan.
 - Palet dashboard: #2d728f, #3b8ea5, #f5ee9e, #f49e4c, #ab3428 — distribusi seperti referensi user (sidebar Cerulean, kartu KPI cyan/vanilla/sandy/brick).
 - Palet CMS: #b9d8c2, #9ac2c9, #8aa1b1, #4a5043, #ffcb47.

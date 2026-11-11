@@ -56,16 +56,59 @@ def save(name, w, h, op, layers):
     with open(os.path.join(OUT, f"{name}.json"), "w") as f:
         json.dump(data, f, separators=(",", ":"))
 
-# 1) Loader — lapisan mengisi dari kiri, berurutan (segar → dalam), lalu menghilang. Loop 2 detik.
-layers = []
-bars = [(CYAN, 12), (VANILLA, 16), (SANDY, 20), (BRICK, 26)]
-y = 30
-for i, (c, hgt) in enumerate(bars):
-    d = i * 10
-    scale = kf([(0, [0, 100]), (18 + d, [0, 100]), (48 + d, [100, 100]), (92, [100, 100]), (112, [0, 100]), (120, [0, 100])])
-    layers.append(rect_layer(f"bar{i}", 30 - 50, y + hgt / 2, 100, hgt, c, 6, 0, 120, scale=scale, pos=static([30, y + hgt / 2])))
-    y += hgt + 6
-save("loader", 160, 150, 120, list(reversed(layers)))
+# 1) Loader — logo SIG: chevron memantul, huruf terisi menyapu kiri → kanan lalu terhapus. Loop ±1,7 detik.
+# Path logo dari design/logo/sig/paths.json (hasil trace.py). Huruf diberi class "lt-ink" agar warnanya mengikuti tema (globals.css).
+import re
+SIG = json.load(open(os.path.join(os.path.dirname(__file__), "..", "design", "logo", "sig", "paths.json")))
+
+def svg_to_shapes(d):
+    """Path SVG (M/L/C/Z absolut) → daftar item Lottie 'sh'."""
+    shapes = []
+    for sub in re.findall(r"M[^M]*", d):
+        nums = [float(x) for x in re.findall(r"-?\d+\.?\d*", sub)]
+        cmds = re.findall(r"[MLCZ]", sub)
+        v, i_, o_ = [], [], []
+        k = 0
+        pt = lambda: [nums[k], nums[k + 1]]
+        for c in cmds:
+            if c == "M":
+                v.append(pt()); i_.append([0, 0]); o_.append([0, 0]); k += 2
+            elif c == "L":
+                v.append(pt()); i_.append([0, 0]); o_.append([0, 0]); k += 2
+            elif c == "C":
+                c1 = [nums[k], nums[k + 1]]; c2 = [nums[k + 2], nums[k + 3]]; e = [nums[k + 4], nums[k + 5]]; k += 6
+                p0 = v[-1]
+                o_[-1] = [c1[0] - p0[0], c1[1] - p0[1]]
+                v.append(e); i_.append([c2[0] - e[0], c2[1] - e[1]]); o_.append([0, 0])
+        if len(v) > 1 and abs(v[0][0] - v[-1][0]) < 1e-6 and abs(v[0][1] - v[-1][1]) < 1e-6:
+            i_[0] = i_[-1]; v.pop(); i_.pop(); o_.pop()
+        shapes.append({"ty": "sh", "ks": static({"i": i_, "o": o_, "v": v, "c": True})})
+    return shapes
+
+def sig_layer(name, d, color, cls=None, opacity=100, pos=None, mask=None, ip=0, op=100):
+    items = svg_to_shapes(d) + [{"ty": "fl", "c": static(rgb(color)), "o": static(100), "r": 2}, {"ty": "tr", **transform(), "sk": static(0), "sa": static(0)}]
+    layer = {"ddd": 0, "ty": 4, "nm": name, "sr": 1, "ip": ip, "op": op, "st": 0, "bm": 0,
+             "ks": {"o": static(opacity), "r": static(0), "p": pos or static([PADX, PADY]), "a": static([0, 0]), "s": static([100, 100])},
+             "shapes": [{"ty": "gr", "it": items, "nm": name}]}
+    if cls: layer["cl"] = cls
+    if mask: layer["hasMask"] = True; layer["masksProperties"] = [mask]
+    return layer
+
+LW, LH = SIG["w"], SIG["h"]
+PADX, PADY = 28, 56
+FR = 100
+def rect_path(l, r):
+    return {"i": [[0, 0]] * 4, "o": [[0, 0]] * 4, "v": [[l, -20], [r, -20], [r, LH + 20], [l, LH + 20]], "c": True}
+sweep = {"inv": False, "mode": "a", "o": static(100), "x": static(0), "nm": "sweep", "pt": {"a": 1, "k": [
+    {"t": 0, "s": [rect_path(0, 0)], **EASE}, {"t": 55, "s": [rect_path(0, LW)], **EASE},
+    {"t": 78, "s": [rect_path(0, LW)], **EASE}, {"t": 98, "s": [rect_path(LW, LW)], **EASE}, {"t": 100, "s": [rect_path(LW, LW)]}]}}
+bounce = kf([(0, [PADX, PADY]), (26, [PADX, PADY - 22]), (44, [PADX, PADY + 3]), (60, [PADX, PADY]), (100, [PADX, PADY])])
+layers = [
+    sig_layer("chevron", SIG["red"], "#F03340", pos=bounce),
+    sig_layer("letters-fill", SIG["dark"], "#0A0A0A", cls="lt-ink", mask=sweep),
+    sig_layer("letters-ghost", SIG["dark"], "#0A0A0A", cls="lt-ink", opacity=22),
+]
+save("loader", LW + PADX * 2, LH + PADY + 40, FR, layers)
 
 # 2) Sukses unggah — lapisan tersusun lalu tanda centang tergambar.
 def check_layer(ip, op):
